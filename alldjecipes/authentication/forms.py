@@ -1,4 +1,5 @@
 from django import forms
+from alldjecipes.users.models import ChefUser
 
 
 class LoginForm(forms.Form):

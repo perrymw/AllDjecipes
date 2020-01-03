@@ -4,15 +4,9 @@ Creator (of recipe)
 '''
 
 from django.db import models
-from alldjecipes.users.models import ChefUser
+from alldjecipes.users.models import ChefUser, Creator
 from django.utils import timezone
 
-class Creator(models.Model):
-    user = models.OneToOneField(ChefUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=254)
-    def __str__(self):
-        return f"{self.name}"
 
 class Recipe(models.Model):
     recipe_name = models.TextField(blank=False)
@@ -34,3 +28,5 @@ class Recipe(models.Model):
     ]
     date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', default='alldjecipes/images/defaultimage.jpeg')
+    
+

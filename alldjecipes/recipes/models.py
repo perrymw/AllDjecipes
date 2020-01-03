@@ -4,11 +4,11 @@ Creator (of recipe)
 '''
 
 from django.db import models
-from alldjecipes.users.models import User
+from alldjecipes.users.models import ChefUser
 from django.utils import timezone
 
 class Creator(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(ChefUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
     def __str__(self):

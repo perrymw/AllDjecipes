@@ -33,4 +33,4 @@ class Recipe(models.Model):
         (DINNER, 'Dinner')
     ]
     date = models.DateTimeField(default=timezone.now)
-    # image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', default='alldjecipes/images/defaultimage.jpeg')

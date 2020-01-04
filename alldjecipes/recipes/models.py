@@ -9,7 +9,7 @@ from django.utils import timezone
 
 
 class Recipe(models.Model):
-    creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
+    creator = models.ForeignKey(Creator, on_delete=models.DO_NOTHING,)
     recipe_name = models.TextField(blank=False)
     completion_time = models.CharField(max_length=50)
     ingredients = models.TextField(blank=False)

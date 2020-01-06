@@ -7,8 +7,29 @@ from alldjecipes.recipes.models import Recipe, Comment
 def recipe_detail(request, id):
     html = 'recipeview.html'
     recipe = Recipe.object.filter(id=id).first()
+    comments = Comment.object.all()
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
 
     return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe})
+
+
+def add_recipe(request):
+    html = 'generic_form.html'
+    if request.method == 'POST':
+        form = RecipeForm(request)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_recipe = Recipe.objects.create(
+                recipe_name=data['recipe_name'],
+                difficulty_level=data['difficulty_level'],
+                category=data['category'],
+                ingredients=data['ingredients'],
+                instructions=data['instructions'],
+                completion_time=data['completion_time'],
+                image=data['image']
+                )
+        return HttpResponseRedirect(reverse('addrecipe'))
+    form = RecipeForm()
+    return render(request, html, {'form': form})

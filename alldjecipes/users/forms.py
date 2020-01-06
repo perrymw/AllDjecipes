@@ -5,9 +5,9 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = ChefUser
         fields = [
-            'First Name',
-            'Last Name',
-            'Email Address'
-            'Username',
-            'Password',
+            'firstname',
+            'lastname',
+            'emailaddress'
+            'username',
+            'password',
         ]

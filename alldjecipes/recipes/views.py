@@ -48,3 +48,22 @@ class AddRecipe(View):
             return HttpResponseRedirect(reverse('homepage'))
         form = RecipeForm()
         return render(request, html, {'form': form})
+
+class AddComment(View):
+    html = 'generic_form.html'
+    def get(self, request):
+        form = CommentForm()
+        return render(request, self.html, {'form': form})
+    def post(self, request):
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                new_recipe = Comment.objects.create(
+                    recipebase=data['recipebase'],
+                    commentor=request.user,
+                    content=data['content'],
+                    )
+            return HttpResponseRedirect(reverse('homepage'))
+        form = CommentForm()
+        return render(request, html, {'form': form})

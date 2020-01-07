@@ -50,4 +50,4 @@ class Comment(models.Model):
     downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
     def __str__(self):
-        return f'{self.content} by {self.commentator}'
+        return f'{self.content} by {self.commentor} for {self.recipebase}'

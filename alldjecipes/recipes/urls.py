@@ -9,6 +9,7 @@ from alldjecipes.recipes import views
 urlpatterns = [
     path('', views.index, name='homepage'),
     path('addrecipe/', views.AddRecipe.as_view(), name='addrecipe'),
+    path('addcomment/', views.AddComment.as_view(), name='addcomment'),
     ]
 
 if settings.DEBUG: 

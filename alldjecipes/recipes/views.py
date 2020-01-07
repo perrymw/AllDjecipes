@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect, reverse, HttpResponse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
 from alldjecipes.recipes.models import Recipe, Comment
 
@@ -15,21 +16,25 @@ def recipe_detail(request, id):
     return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe})
 
 
-def add_recipe(request):
+class AddRecipe(View):
     html = 'generic_form.html'
-    if request.method == 'POST':
-        form = RecipeForm(request)
-        if form.is_valid():
-            data = form.cleaned_data
-            new_recipe = Recipe.objects.create(
-                recipe_name=data['recipe_name'],
-                difficulty_level=data['difficulty_level'],
-                category=data['category'],
-                ingredients=data['ingredients'],
-                instructions=data['instructions'],
-                completion_time=data['completion_time'],
-                image=data['image']
-                )
-        return HttpResponseRedirect(reverse('addrecipe'))
-    form = RecipeForm()
-    return render(request, html, {'form': form})
+    def get(self, request):
+        form = RecipeForm()
+        return render(request, self.html, {'form': form})
+    def post(self, request):
+        if request.method == 'POST':
+            form = AddRecipe(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                new_recipe = Recipe.objects.create(
+                    recipe_name=data['recipe_name'],
+                    difficulty_level=data['difficulty_level'],
+                    category=data['category'],
+                    ingredients=data['ingredients'],
+                    instructions=data['instructions'],
+                    completion_time=data['completion_time'],
+                    image=data['image']
+                    )
+            return HttpResponseRedirect(reverse('addrecipe'))
+        form = RecipeForm()
+        return render(request, html, {'form': form})

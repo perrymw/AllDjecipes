@@ -36,6 +36,7 @@ class AddRecipe(View):
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Recipe.objects.create(
+                    creator=request.user,
                     recipe_name=data['recipe_name'],
                     difficulty_level=data['difficulty_level'],
                     category=data['category'],

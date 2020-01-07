@@ -19,7 +19,6 @@ def login_view(request):
                 password=data['password']
             ):
                 login(request, user)
-                # breakpoint()
                 return HttpResponseRedirect(request.GET.get('next', '/'))
 
     return render(request, html, {'form': form})

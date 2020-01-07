@@ -7,7 +7,8 @@ from alldjecipes.recipes import views
 
 
 urlpatterns = [
-    path('addrecipe/', views.AddRecipe.as_view(), name='addrecipe')
+    path('', views.index, name='homepage'),
+    path('addrecipe/', views.AddRecipe.as_view(), name='addrecipe'),
     ]
 
 if settings.DEBUG: 

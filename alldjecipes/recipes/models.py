@@ -1,5 +1,5 @@
 '''
-Creator (of recipe)
+ChefUser (of recipe)
 
 '''
 

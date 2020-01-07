@@ -5,6 +5,15 @@ from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
 from alldjecipes.recipes.models import Recipe, Comment
 
+
+def index(request):
+    html = "index.html"
+    
+    recipe = Recipe.objects.all()
+
+    return render(request, html, {"data": recipe})
+
+
 def recipe_detail(request, id):
     html = 'recipeview.html'
     recipe = Recipe.object.filter(id=id).first()
@@ -23,7 +32,7 @@ class AddRecipe(View):
         return render(request, self.html, {'form': form})
     def post(self, request):
         if request.method == 'POST':
-            form = AddRecipe(request.POST)
+            form = RecipeForm(request.POST)
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Recipe.objects.create(
@@ -35,6 +44,6 @@ class AddRecipe(View):
                     completion_time=data['completion_time'],
                     image=data['image']
                     )
-            return HttpResponseRedirect(reverse('addrecipe'))
+            return HttpResponseRedirect(reverse('homepage'))
         form = RecipeForm()
         return render(request, html, {'form': form})

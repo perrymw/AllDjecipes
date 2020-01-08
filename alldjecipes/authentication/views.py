@@ -6,7 +6,7 @@ from alldjecipes.authentication.forms import LoginForm
 
 
 def login_view(request):
-    html = "welcome.html"
+    html = "generic_form.html"
 
     form = LoginForm()
     if request.method == 'POST':

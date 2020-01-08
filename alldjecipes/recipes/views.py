@@ -32,7 +32,7 @@ class AddRecipe(View):
         return render(request, self.html, {'form': form})
     def post(self, request):
         if request.method == 'POST':
-            form = RecipeForm(request.POST)
+            form = RecipeForm(request.POST, request.FILES)
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Recipe.objects.create(
@@ -43,7 +43,8 @@ class AddRecipe(View):
                     ingredients=data['ingredients'],
                     instructions=data['instructions'],
                     completion_time=data['completion_time'],
-                    image=data['image']
+                    image=data['image'],
+                    contact=request.user.email
                     )
             return HttpResponseRedirect(reverse('homepage'))
         form = RecipeForm()

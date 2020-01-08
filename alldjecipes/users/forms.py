@@ -1,13 +1,13 @@
-from django.db import forms
+from django import forms
 from alldjecipes.users.models import ChefUser
 
 class SignupForm(forms.ModelForm):
     class Meta:
         model = ChefUser
-        fields = [
+        fields = (
             'firstname',
             'lastname',
-            'emailaddress'
+            'email',
             'username',
             'password',
-        ]
+        )

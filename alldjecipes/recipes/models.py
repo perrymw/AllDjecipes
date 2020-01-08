@@ -1,5 +1,5 @@
 '''
-Creator (of recipe)
+ChefUser (of recipe)
 
 '''
 
@@ -37,7 +37,7 @@ class Recipe(models.Model):
     upvote = models.IntegerField(default=0)
     downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
-    contact = models.EmailField(ChefUser, on_delete=models.DO_NOTHING)
+    contact = models.EmailField(ChefUser, max_length=254,default='')
     
     def __str__(self):
         return f"{self.recipe_name}"
@@ -50,4 +50,4 @@ class Comment(models.Model):
     downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
     def __str__(self):
-        return f'{self.content} by {self.commentator}'
+        return f'{self.content} by {self.commentor} for {self.recipebase}'

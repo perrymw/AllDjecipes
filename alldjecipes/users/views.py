@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from alldjecipes.users.forms import SignupForm
 from alldjecipes.users.models import ChefUser
+from alldjecipes.recipes.models import Recipe
 
 class AddUser(View):
     html = 'generic_form.html'
@@ -25,3 +26,10 @@ class AddUser(View):
             return HttpResponseRedirect(reverse('homepage'))
         form = SignupForm()
         return render(request, html, {'form': form})
+
+
+def user_view(request, id):
+    html = 'chefuser.html'
+    chefuser = ChefUser.objects.filter(id=id).first()
+    recipes = Recipe.objects.filter(creator=chefuser)
+    return render(request, html, {'chefuser':chefuser, 'recipes':recipes})

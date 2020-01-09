@@ -1,0 +1,22 @@
+<h2>{{ recipe }}</h2>
+<img src='{{ recipe.image.url }}'>
+<h3>Time: {{recipe.completion_time}}</h3>
+<h3>Ingredients:</h3>
+{% for foo in ingredients %}
+<h4><ul>
+    <li>
+    {{ foo }}
+    </li>
+</ul></h4>
+{% endfor %}
+<h3>Steps:</h3>
+<h4><ol>
+{% for foo in instructions %}
+    <li>
+    {{ foo }}
+    </li>
+{% endfor %}
+</ol></h4>
+{{recipe.contact}}
+<br>
+<a href='/'>Back to home</a> <a href='/chefadd/'>Add a chef</a> <a href='/recipeadd/'> Add Recipe</a> <a href='/logout/'> Log out </a>

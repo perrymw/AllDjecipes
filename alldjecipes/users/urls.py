@@ -5,5 +5,6 @@ from alldjecipes.users import views
 
 urlpatterns = [
     path('', index, name='homepage'),
-    path('adduser/', views.AddUser.as_view(), name="adduser")
+    path('adduser/', views.AddUser.as_view(), name="adduser"),
+    path('chefuser/<int:id>/', views.user_view)
 ]

@@ -34,7 +34,7 @@ class Recipe(models.Model):
     )
     date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/',
-    default='alldjecipes/default/defaultimage.jpeg'
+    default='../default/defaultimage.jpeg'
     )
     upvote = models.IntegerField(default=0)
     downvote = models.IntegerField(default=0)

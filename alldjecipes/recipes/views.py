@@ -70,23 +70,23 @@ class AddComment(View):
         return render(request, html, {'form': form})
 
 
-class Appetizer(view):
+def Appetizer(request):
     pass
 
 
-class Breakfast(view):
+def Breakfast(request):
     pass
 
 
-class Brunch(view):
+def Brunch(request):
     pass
 
 
-class Lunch(view):
+def Lunch(request):
     pass
 
 
-class Dinner(view):
+def Dinner(request):
     pass
 
 

@@ -68,3 +68,33 @@ class AddComment(View):
             return HttpResponseRedirect(reverse('homepage'))
         form = CommentForm()
         return render(request, html, {'form': form})
+
+
+def Appetizer(request):
+    html = 'appetizer.html'
+    recipe =  Recipe.objects.filter(category='Appetizer'))
+    return render(request, html, {'recipe': recipe})
+
+
+def Breakfast(request):
+    html = 'breakfast.html'
+    recipe =  Recipe.objects.filter(category='Breakfast'))
+    return render(request, html, {'recipe': recipe})
+
+
+def Brunch(request):
+    html = 'brunch.html'
+    recipe =  Recipe.objects.filter(category='Brunch'))
+    return render(request, html, {'recipe': recipe})
+
+
+def Lunch(request):
+    html = 'lunch.html'
+    recipe =  Recipe.objects.filter(category='Lunch'))
+    return render(request, html, {'recipe': recipe})
+
+
+def Dinner(request):
+    html = 'dinner.html'
+    recipe =  Recipe.objects.filter(category='Dinner'))
+    return render(request, html, {'recipe': recipe})

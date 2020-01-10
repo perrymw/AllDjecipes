@@ -71,3 +71,26 @@ class AddComment(View):
             return HttpResponseRedirect(reverse('homepage'))
         form = CommentForm()
         return render(request, html, {'form': form})
+
+
+def Appetizer(request):
+    pass
+
+
+def Breakfast(request):
+    pass
+
+
+def Brunch(request):
+    pass
+
+
+def Lunch(request):
+    pass
+
+
+def Dinner(request):
+    pass
+
+
+

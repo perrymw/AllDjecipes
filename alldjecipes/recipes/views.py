@@ -93,6 +93,49 @@ def Dinner(request):
     pass
 
 
+def recipe_upvote(request, id):
+    html = "recipeview.html"
+    try:
+        vote = Recipe.objects.get(id=id)
+    except Recipe.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    vote.total += 1
+    vote.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
+
+def recipe_downvote(request, id):
+    html = "recipeview.html"
+    try:
+        vote = Recipe.objects.get(id=id)
+    except Recipe.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    vote.total -= 1
+    vote.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
+
+def comment_upvote(request, id):
+    html = "recipeview.html"
+    try:
+        vote = Comment.objects.get(id=id)
+    except Comment.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    vote.total += 1
+    vote.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
+
+def comment_downvote(request, id):
+    html = "recipeview.html"
+    try:
+        vote = Comment.objects.get(id=id)
+    except Comment.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    vote.total -= 1
+    vote.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
 # @login_required
 # def edit_recipe_view(request,id):
 #     html = "generic_form.html"

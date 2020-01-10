@@ -1,0 +1,12 @@
+<ul>
+        <h1>{{ chefuser.firstname}}  {{chefuser.lastname}}</h1>
+        <br>
+        <h2>{{ chefuser.email }}</h2>
+        {% for recipe in recipes %}
+        <ul>
+            <li><a href = "/recipe/{{recipe.id}}">{{recipe.recipe_name}}</a></li>
+        </ul>
+    {% endfor %}
+</ul>
+</br>
+<a href='/'>Back to home</a> <a href='/chefadd/'>Add a chef</a> <a href='/recipeadd/'> Add Recipe</a> <a href='/logout/'> Log out </a>

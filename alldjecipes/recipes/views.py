@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect, reverse, HttpResponse
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
@@ -11,20 +12,21 @@ def index(request):
     
     recipe = Recipe.objects.all()
 
-    return render(request, html, {"data": recipe})
+    return render(request, html, {"recipe": recipe})
 
 
 def recipe_detail(request, id):
     html = 'recipeview.html'
-    recipe = Recipe.object.filter(id=id).first()
-    comments = Comment.object.all()
+    recipe = Recipe.objects.filter(id=id).first()
+    comments = Comment.objects.all()
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
 
-    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe})
+    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments})
 
 
+@method_decorator(login_required, name='dispatch')
 class AddRecipe(View):
     html = 'generic_form.html'
     def get(self, request):
@@ -50,18 +52,19 @@ class AddRecipe(View):
         form = RecipeForm()
         return render(request, html, {'form': form})
 
+@method_decorator(login_required, name='dispatch')
 class AddComment(View):
     html = 'generic_form.html'
-    def get(self, request):
+    def get(self, request,id):
         form = CommentForm()
         return render(request, self.html, {'form': form})
-    def post(self, request):
+    def post(self, request, id):
         if request.method == 'POST':
             form = CommentForm(request.POST)
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Comment.objects.create(
-                    recipebase=data['recipebase'],
+                    recipebase=Recipe.objects.filter(id=id).first(),
                     commentor=request.user,
                     content=data['content'],
                     )

@@ -120,6 +120,8 @@ USE_TZ = True
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'
+DEFAULT_ROOT =  os.path.join(BASE_DIR, 'default') 
+DEFAULT_URL = '/default/'
 
 
 # Static files (CSS, JavaScript, Images)

@@ -12,7 +12,7 @@ def index(request):
     
     recipe = Recipe.objects.all()
 
-    return render(request, html, {"data": recipe})
+    return render(request, html, {"recipe": recipe})
 
 
 def recipe_detail(request, id):

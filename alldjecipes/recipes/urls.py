@@ -12,10 +12,7 @@ urlpatterns = [
     path('addrecipe/', views.AddRecipe.as_view(), name='addrecipe'),
     path('addcomment/', views.AddComment.as_view(), name='addcomment'),
     ]
-
+# https://www.geeksforgeeks.org/python-uploading-images-in-django/
 if settings.DEBUG: 
         urlpatterns += static(settings.MEDIA_URL, 
                               document_root=settings.MEDIA_ROOT) 
-else:
-        urlpatterns += static(settings.DEFAULT_URL, 
-                              document_root=settings.DEFAULT_ROOT) 

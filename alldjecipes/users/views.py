@@ -16,7 +16,7 @@ class AddUser(View):
             form = SignupForm(request.POST)
             if form.is_valid():
                 data = form.cleaned_data
-                new_recipe = ChefUser.objects.create(
+                new_recipe = ChefUser.objects.create_user(
                     firstname=data['firstname'],
                     lastname=data['lastname'],
                     email=data['email'],

@@ -9,7 +9,7 @@ from django.utils import timezone
 
 
 class Recipe(models.Model):
-    creator = models.ForeignKey(ChefUser, on_delete=models.DO_NOTHING,)
+    creator = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     recipe_name = models.CharField(max_length=50)
     completion_time = models.CharField(max_length=50)
     ingredients = models.TextField(blank=False)
@@ -33,7 +33,9 @@ class Recipe(models.Model):
         null=False,
     )
     date = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='images/', default='alldjecipes/images/defaultimage.jpeg')
+    image = models.ImageField(upload_to='images/',
+    default='images/defaultimage.jpeg'
+    )
     upvote = models.IntegerField(default=0)
     downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
@@ -43,8 +45,8 @@ class Recipe(models.Model):
         return f"{self.recipe_name}"
 
 class Comment(models.Model):
-    recipebase = models.ForeignKey(Recipe, on_delete=models.DO_NOTHING, null=False)
-    commentor = models.ForeignKey(ChefUser, on_delete=models.DO_NOTHING)
+    recipebase = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False)
+    commentor = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     content = models.TextField()
     upvote = models.IntegerField(default=0)
     downvote = models.IntegerField(default=0)

@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect, reverse, HttpResponse
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
@@ -11,20 +12,21 @@ def index(request):
     
     recipe = Recipe.objects.all()
 
-    return render(request, html, {"data": recipe})
+    return render(request, html, {"recipe": recipe})
 
 
 def recipe_detail(request, id):
     html = 'recipeview.html'
-    recipe = Recipe.object.filter(id=id).first()
-    comments = Comment.object.all()
+    recipe = Recipe.objects.filter(id=id).first()
+    comments = Comment.objects.all()
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
 
-    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe})
+    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments})
 
 
+@method_decorator(login_required, name='dispatch')
 class AddRecipe(View):
     html = 'generic_form.html'
     def get(self, request):
@@ -32,7 +34,7 @@ class AddRecipe(View):
         return render(request, self.html, {'form': form})
     def post(self, request):
         if request.method == 'POST':
-            form = RecipeForm(request.POST)
+            form = RecipeForm(request.POST, request.FILES)
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Recipe.objects.create(
@@ -43,12 +45,14 @@ class AddRecipe(View):
                     ingredients=data['ingredients'],
                     instructions=data['instructions'],
                     completion_time=data['completion_time'],
-                    image=data['image']
+                    image=data['image'],
+                    contact=request.user.email
                     )
             return HttpResponseRedirect(reverse('homepage'))
         form = RecipeForm()
         return render(request, html, {'form': form})
 
+@method_decorator(login_required, name='dispatch')
 class AddComment(View):
     html = 'generic_form.html'
     def get(self, request):
@@ -67,3 +71,26 @@ class AddComment(View):
             return HttpResponseRedirect(reverse('homepage'))
         form = CommentForm()
         return render(request, html, {'form': form})
+
+
+def Appetizer(request):
+    pass
+
+
+def Breakfast(request):
+    pass
+
+
+def Brunch(request):
+    pass
+
+
+def Lunch(request):
+    pass
+
+
+def Dinner(request):
+    pass
+
+
+

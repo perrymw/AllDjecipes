@@ -71,23 +71,38 @@ class AddComment(View):
 
 
 def Appetizer(request):
-    pass
+    html = 'appetizer.html'
+    recipe =  Recipe.objects.filter(category='Appetizer'))
+    return render(request, html, {'Appetizer': appetizer})
 
 
 def Breakfast(request):
-    pass
+    html = 'breakfast.html'
+    recipe =  Recipe.objects.filter(category='Breakfast'))
+    return render(request, html, {'Breakfast': breakfast})
+
+    
 
 
 def Brunch(request):
-    pass
+    html = 'brunch.html'
+    recipe =  Recipe.objects.filter(category='Brunch'))
+    return render(request, html, {'Brunch': brunch})
+
 
 
 def Lunch(request):
-    pass
+    html = 'lunch.html'
+    recipe =  Recipe.objects.filter(category='Lunch'))
+    return render(request, html, {'Lunch': lunch})
+
 
 
 def Dinner(request):
-    pass
+    html = 'dinner.html'
+    recipe =  Recipe.objects.filter(category='Dinner'))
+    return render(request, html, {'Dinner': Dinner})
+
 
 
 

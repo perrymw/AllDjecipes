@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.index, name='homepage'),
     path('recipe/<int:id>/', views.recipe_detail),
     path('addrecipe/', views.AddRecipe.as_view(), name='addrecipe'),
-    path('addcomment/', views.AddComment.as_view(), name='addcomment'),
+    path('<int:id>/addcomment/', views.AddComment.as_view(), name='addcomment'),
     ]
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 if settings.DEBUG: 

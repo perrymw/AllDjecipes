@@ -19,4 +19,17 @@
 </ol></h4>
 {{recipe.contact}}
 <br>
-<a href='/'>Back to home</a> <a href='/recipeadd/'> Add Recipe</a> <a href='/logout/'> Log out </a>
+<a href='/editrecipe/'><button> Edit Recipe</button></a> 
+<h2>Comments:</h2>
+{% for comment in comments %}
+    <div>
+    {{comment.content}}
+    <br>
+    -{{comment.commentor}}
+    </div>
+{% endfor %}
+
+<a href='/'>Back to home</a> 
+<a href='/addrecipe/'> Add Recipe</a> 
+<a href='/{{recipe.id}}/addcomment/'><button> Add Comment</button></a> 
+<a href='/logout/'> Log out </a>

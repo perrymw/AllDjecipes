@@ -55,16 +55,16 @@ class AddRecipe(View):
 @method_decorator(login_required, name='dispatch')
 class AddComment(View):
     html = 'generic_form.html'
-    def get(self, request):
+    def get(self, request,id):
         form = CommentForm()
         return render(request, self.html, {'form': form})
-    def post(self, request):
+    def post(self, request, id):
         if request.method == 'POST':
             form = CommentForm(request.POST)
             if form.is_valid():
                 data = form.cleaned_data
                 new_recipe = Comment.objects.create(
-                    recipebase=data['recipebase'],
+                    recipebase=Recipe.objects.filter(id=id).first(),
                     commentor=request.user,
                     content=data['content'],
                     )
@@ -93,4 +93,20 @@ def Dinner(request):
     pass
 
 
+# @login_required
+# def edit_recipe_view(request,id):
+#     html = "generic_form.html"
+#     instance = RecipeItem.objects.get(id=id)
+#     logged_in = request.user
+#     print(logged_in)
+#     print(instance.author)
+#     if logged_in.is_staff == True or logged_in == instance.author.user:
+#         if request.method == "POST":
+#             form = EditRecipeForm(request.POST, instance=instance)
+#             form.save()
+#             return HttpResponseRedirect(reverse('homepage'))
+#     else:
+#         return HttpResponse("You can't do that")
+#     form = EditRecipeForm(instance=instance)
+#     return render(request, html, {'form': form})
 

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
 from alldjecipes.recipes.models import Recipe, Comment
+from alldjecipes.helpers import helper
 
 
 def index(request):
@@ -18,7 +19,7 @@ def index(request):
 def recipe_detail(request, id):
     html = 'recipeview.html'
     recipe = Recipe.objects.filter(id=id).first()
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(recipebase=recipe)
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
@@ -104,17 +105,6 @@ def recipe_upvote(request, id):
     return HttpResponseRedirect(reverse('homepage'))
 
 
-def recipe_downvote(request, id):
-    html = "recipeview.html"
-    try:
-        vote = Recipe.objects.get(id=id)
-    except Recipe.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    vote.total -= 1
-    vote.save()
-    return HttpResponseRedirect(reverse('homepage'))
-
-
 def comment_upvote(request, id):
     html = "recipeview.html"
     try:
@@ -122,6 +112,17 @@ def comment_upvote(request, id):
     except Comment.DoesNotExist():
         return HttpResponseRedirect(reverse('homepage'))
     vote.total += 1
+    vote.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
+
+def recipe_downvote(request, id):
+    html = "recipeview.html"
+    try:
+        vote = Recipe.objects.get(id=id)
+    except Recipe.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    vote.total -= 1
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
 
@@ -135,6 +136,7 @@ def comment_downvote(request, id):
     vote.total -= 1
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
+
 
 # @login_required
 # def edit_recipe_view(request,id):

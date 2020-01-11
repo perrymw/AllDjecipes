@@ -20,12 +20,14 @@ class Recipe(models.Model):
     BRUNCH = 'Brunch'
     LUNCH = 'Lunch'
     DINNER = 'Dinner'
+    DESSERT = "Dessert"
     MEAL_CATEGORY = [
         (APPETIZER, 'Appetizer'),
         (BREAKFAST, 'Breakfast'),
         (BRUNCH, 'Brunch'),
         (LUNCH, 'Lunch'),
-        (DINNER, 'Dinner')
+        (DINNER, 'Dinner'),
+        (DESSERT, 'Dessert')
     ]
     category = models.CharField(
         max_length=9,

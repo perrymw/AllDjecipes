@@ -136,22 +136,3 @@ def comment_downvote(request, id):
     vote.total -= 1
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
-
-
-# @login_required
-# def edit_recipe_view(request,id):
-#     html = "generic_form.html"
-#     instance = RecipeItem.objects.get(id=id)
-#     logged_in = request.user
-#     print(logged_in)
-#     print(instance.author)
-#     if logged_in.is_staff == True or logged_in == instance.author.user:
-#         if request.method == "POST":
-#             form = EditRecipeForm(request.POST, instance=instance)
-#             form.save()
-#             return HttpResponseRedirect(reverse('homepage'))
-#     else:
-#         return HttpResponse("You can't do that")
-#     form = EditRecipeForm(instance=instance)
-#     return render(request, html, {'form': form})
-

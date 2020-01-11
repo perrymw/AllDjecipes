@@ -15,6 +15,12 @@ urlpatterns = [
     path('commentupvote/<int:id>', views.comment_upvote, name=''),
     path('commentdownvote/<int:id>', views.comment_downvote, name=''),
     path('<int:id>/addcomment/', views.AddComment.as_view(), name='addcomment'),
+    path('appetizer/', views.appetizer_filter, name='appetizer'),
+    path('breakfast/', views.breakfast_filter, name='breakfast'),
+    path('brunch/', views.brunch_filter, name='brunch'),
+    path('dessert/', views.dessert_filter, name='desert'),
+    path('dinner/', views.dinner_filter, name='dinner'),
+    path('lunch/', views.lunch_filter, name='lunch'),
     ]
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 if settings.DEBUG: 

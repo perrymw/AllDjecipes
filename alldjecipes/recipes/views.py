@@ -93,7 +93,7 @@ def Lunch(request):
 def Dinner(request):
     pass
 
-
+@login_required
 def recipe_upvote(request, id):
     html = "recipeview.html"
     try:
@@ -104,7 +104,7 @@ def recipe_upvote(request, id):
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
 
-
+@login_required
 def comment_upvote(request, id):
     html = "recipeview.html"
     try:
@@ -115,7 +115,7 @@ def comment_upvote(request, id):
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
 
-
+@login_required
 def recipe_downvote(request, id):
     html = "recipeview.html"
     try:
@@ -126,7 +126,7 @@ def recipe_downvote(request, id):
     vote.save()
     return HttpResponseRedirect(reverse('homepage'))
 
-
+@login_required
 def comment_downvote(request, id):
     html = "recipeview.html"
     try:

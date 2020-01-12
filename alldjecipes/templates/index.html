@@ -1,14 +1,29 @@
+<h1>AllDjecipes - The Real Cooking Network</h1>
+{% if  user.username  != ''%}
+<nav>
+<a href='/logout/'> Log out </a> | 
+<a href='/chefuser/{{user.id}}'>Profile</a> |
+<a href='/addrecipe/'> Add Recipe </a> 
+</nav>
 <h2>Welcome {{ user.username }}!</h2>
+{% endif %}
+{% if  user.username  == ''%}
+<nav>
+<a href='/adduser/'> Sign Up </a> | 
+<a href='/login/'> Login </a> 
+</nav>
+<h2>Hello, There!<h2>
+{% endif %}
 
-<a href=''>Breakfast</a>
+<a href='/breakfast/'>Breakfast</a>
 <br>
-<a href=''>Brunch</a>
+<a href='/brunch/'>Brunch</a>
 <br>
-<a href=''>Lunch</a>
+<a href='/appetizer/'>Appetizer</a>
 <br>
-<a href=''>Dinner</a>
+<a href='/lunch/'>Lunch</a>
 <br>
-<a href=''>Dessert</a>
+<a href='/dinner/'>Dinner</a>
 <br>
-<a href=''>Appetizer</a>
+<a href='/dessert/'>Dessert</a>
 <br>

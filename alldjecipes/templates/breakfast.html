@@ -9,5 +9,6 @@
 
 
 {% for item in breakfast %}
+    <img src='{{ item.image.url }}'>
     <h2>{{item.recipe_name}}</h2>
 {% endfor %}

@@ -1,4 +1,4 @@
-<h2>{{ recipe }}</h2>
+<div id='header'><h2>{{ recipe }}</h2> by {{recipe.creator}}</div>
 <img src='{{ recipe.image.url }}'>
 <h3>Time: {{recipe.completion_time}}</h3>
 <h3>Ingredients:</h3>
@@ -23,7 +23,10 @@
     {{ recipe.total }}
     <a href='/recipedownvote/{{recipe.id}}'><button>hate</button></a>
     <br>
+    {{user}}
+    {% if user == recipe.creator %}
 <a href='/editrecipe/'><button> Edit Recipe</button></a> 
+    {% endif %}
 <h2>Comments:</h2>
 {% for comment in comments %}
     <div>

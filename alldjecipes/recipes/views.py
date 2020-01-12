@@ -18,13 +18,14 @@ def index(request):
 
 def recipe_detail(request, id):
     html = 'recipeview.html'
+    user = request.user.username
     recipe = Recipe.objects.filter(id=id).first()
     comments = Comment.objects.filter(recipebase=recipe)
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
 
-    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments})
+    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments, 'user': user})
 
 
 @method_decorator(login_required, name='dispatch')

@@ -7,7 +7,7 @@
 <a href='/'>Home Page</a>
 <a href='/logout/'>Logout</a>
 
-
 {% for item in lunch %}
+    <img src='{{ item.image.url }}'>
     <h2>{{item.recipe_name}}</h2>
 {% endfor %}

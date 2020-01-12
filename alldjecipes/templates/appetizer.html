@@ -3,12 +3,15 @@
 <head>
     <link rel='stylesheet' type='text/css' href='{% static "css/main.css" %}'>
 </head>
-
+<body background="blue">
 <a href='/'>Home Page</a>
 <a href='/logout/'>Logout</a>
 
 
 {% for item in appetizer %}
-    <h2>{{item.recipe_name}}</h2>
+    <ul>
+    <img src='{{ item.image.url }}'height="30" width="30">  <a href='/recipe/{{item.id}}/'>{{item.recipe_name}}</a>  {{item.total}}
+    </ul>
 {% endfor %}
+</body>
 

@@ -38,8 +38,6 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='images/',
     default='images/defaultimage.jpeg'
     )
-    upvote = models.IntegerField(default=0)
-    downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
     contact = models.EmailField(ChefUser, max_length=254,default='')
     

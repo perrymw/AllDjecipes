@@ -75,39 +75,44 @@ class AddComment(View):
         return render(request, html, {'form': form})
 
 
-def appetizer_filter(request):
+def filter_by_category(request, param):
     html = 'appetizer.html'
-    appetizer =  Recipe.objects.filter(category='Appetizer')
-    return render(request, html, {'appetizer': appetizer})
+    category_items =  Recipe.objects.filter(category=param)
+    return render(request, html, {'category_item': category_items})
+
+# def appetizer_filter(request):
+#     html = 'appetizer.html'
+#     appetizer =  Recipe.objects.filter(category='Appetizer')
+#     return render(request, html, {'appetizer': appetizer})
 
 
-def breakfast_filter(request):
-    html = 'breakfast.html'
-    breakfast =  Recipe.objects.filter(category='Breakfast')
-    return render(request, html, {'breakfast': breakfast})
+# def breakfast_filter(request):
+#     html = 'breakfast.html'
+#     breakfast =  Recipe.objects.filter(category='Breakfast')
+#     return render(request, html, {'breakfast': breakfast})
 
 
-def brunch_filter(request):
-    html = 'brunch.html'
-    brunch =  Recipe.objects.filter(category='Brunch')
-    return render(request, html, {'brunch': brunch})
+# def brunch_filter(request):
+#     html = 'brunch.html'
+#     brunch =  Recipe.objects.filter(category='Brunch')
+#     return render(request, html, {'brunch': brunch})
 
 
-def lunch_filter(request):
-    html = 'lunch.html'
-    lunch =  Recipe.objects.filter(category='Lunch')
-    return render(request, html, {'lunch': lunch})
+# def lunch_filter(request):
+#     html = 'lunch.html'
+#     lunch =  Recipe.objects.filter(category='Lunch')
+#     return render(request, html, {'lunch': lunch})
 
 
-def dinner_filter(request):
-    html = 'dinner.html'
-    dinner =  Recipe.objects.filter(category='Dinner')
-    return render(request, html, {'dinner': dinner})
+# def dinner_filter(request):
+#     html = 'dinner.html'
+#     dinner =  Recipe.objects.filter(category='Dinner')
+#     return render(request, html, {'dinner': dinner})
 
-def dessert_filter(request):
-    html = 'dessert.html'
-    dessert =  Recipe.objects.filter(category='Dessert')
-    return render(request, html, {'dessert': dessert})
+# def dessert_filter(request):
+#     html = 'dessert.html'
+#     dessert =  Recipe.objects.filter(category='Dessert')
+#     return render(request, html, {'dessert': dessert})
 
 @login_required
 def recipe_upvote(request, id):

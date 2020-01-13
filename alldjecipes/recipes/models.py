@@ -38,9 +38,8 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='images/',
     default='images/defaultimage.jpeg'
     )
-    total = models.IntegerField(default=0)
     contact = models.EmailField(ChefUser, max_length=254,default='')
-    
+    total = models.IntegerField(default=0)
     def __str__(self):
         return f"{self.recipe_name}"
 
@@ -49,8 +48,14 @@ class Comment(models.Model):
     date = models.DateTimeField(default=timezone.now)
     commentor = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     content = models.TextField()
-    upvote = models.IntegerField(default=0)
-    downvote = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.content} by {self.commentor} for {self.recipebase}'
+
+class Vote(models.Model):
+    voter = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
+    upvoter = models.IntegerField(default=0)
+    downvoter = models.IntegerField(default=0)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, blank=True)
+    total = models.IntegerField(default=0)

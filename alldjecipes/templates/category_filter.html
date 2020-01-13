@@ -22,7 +22,7 @@
 {% endif %}
 {% for item in category_item %}
     <ul>
-    <img src='{{ item.image.url }}'height="auto" width="30">  <a href='/recipe/{{item.id}}/'>{{item.recipe_name}}</a>  {{item.total}}
+    <img src='{{ item.image.url }}'height="auto" width="45">  <a href='/recipe/{{item.id}}/'>{{item.recipe_name}}</a> <br> Overall: {% if item.total > 0 %} Liked! {% endif %} {% if item.total < 0 %} Not well liked {% endif %}
     </ul>
 {% endfor %}
 

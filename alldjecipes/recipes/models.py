@@ -46,6 +46,7 @@ class Recipe(models.Model):
 
 class Comment(models.Model):
     recipebase = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False)
+    date = models.DateTimeField(default=timezone.now)
     commentor = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     content = models.TextField()
     upvote = models.IntegerField(default=0)

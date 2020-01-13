@@ -20,7 +20,7 @@ def recipe_detail(request, id):
     html = 'recipeview.html'
     user = request.user.username
     recipe = Recipe.objects.filter(id=id).first()
-    comments = Comment.objects.filter(recipebase=recipe)
+    comments = Comment.objects.filter(recipebase=recipe).order_by("-date")
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
@@ -75,39 +75,11 @@ class AddComment(View):
         return render(request, html, {'form': form})
 
 
-def appetizer_filter(request):
-    html = 'appetizer.html'
-    appetizer =  Recipe.objects.filter(category='Appetizer')
-    return render(request, html, {'appetizer': appetizer})
+def filter_by_category(request, param):
+    html = 'category_filter.html'
+    category_items =  Recipe.objects.filter(category=param.lower().title())
+    return render(request, html, {'category_item': category_items})
 
-
-def breakfast_filter(request):
-    html = 'breakfast.html'
-    breakfast =  Recipe.objects.filter(category='Breakfast')
-    return render(request, html, {'breakfast': breakfast})
-
-
-def brunch_filter(request):
-    html = 'brunch.html'
-    brunch =  Recipe.objects.filter(category='Brunch')
-    return render(request, html, {'brunch': brunch})
-
-
-def lunch_filter(request):
-    html = 'lunch.html'
-    lunch =  Recipe.objects.filter(category='Lunch')
-    return render(request, html, {'lunch': lunch})
-
-
-def dinner_filter(request):
-    html = 'dinner.html'
-    dinner =  Recipe.objects.filter(category='Dinner')
-    return render(request, html, {'dinner': dinner})
-
-def dessert_filter(request):
-    html = 'dessert.html'
-    dessert =  Recipe.objects.filter(category='Dessert')
-    return render(request, html, {'dessert': dessert})
 
 @login_required
 def recipe_upvote(request, id):

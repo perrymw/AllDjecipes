@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from alldjecipes.users.models import ChefUser
-from alldjecipes.recipes.models import Comment,Recipe
+from alldjecipes.recipes.models import Comment,Recipe, Vote
 from alldjecipes.authentication.urls import urlpatterns as auth_urls
 from alldjecipes.recipes.urls import urlpatterns as recipe_urls
 from alldjecipes.users.urls import urlpatterns as users_urls
@@ -25,6 +25,7 @@ from alldjecipes.users.urls import urlpatterns as users_urls
 admin.site.register(ChefUser)
 admin.site.register(Comment)
 admin.site.register(Recipe)
+admin.site.register(Vote)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

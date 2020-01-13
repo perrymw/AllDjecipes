@@ -4,28 +4,28 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from alldjecipes.recipes.forms import CommentForm, RecipeForm
-from alldjecipes.recipes.models import Recipe, Comment
-from alldjecipes.helpers import helper
+from alldjecipes.recipes.models import Recipe, Comment, Vote
+from alldjecipes.users.models import ChefUser
+from alldjecipes.helpers.helper import voting_helper
 
 
 def index(request):
     html = "index.html"
-    
     recipe = Recipe.objects.all()
-
     return render(request, html, {"recipe": recipe})
 
 
 def recipe_detail(request, id):
     html = 'recipeview.html'
-    user = request.user.username
+    user = ChefUser.objects.filter(id=id)
+    logged = request.user
     recipe = Recipe.objects.filter(id=id).first()
     comments = Comment.objects.filter(recipebase=recipe).order_by("-date")
     ingredients, instructions = recipe.ingredients, recipe.instructions
     if '.' in ingredients or instructions:
         ingredients, instructions = recipe.ingredients.split('.'), recipe.instructions.split('.')
 
-    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments, 'user': user})
+    return render(request, html, {"ingredients": ingredients, "instructions": instructions, "recipe": recipe, 'comments':comments, 'user': user, 'logged':logged})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -70,7 +70,7 @@ class AddComment(View):
                     commentor=request.user,
                     content=data['content'],
                     )
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('recipe_detail', args=[id]))
         form = CommentForm()
         return render(request, html, {'form': form})
 
@@ -84,44 +84,25 @@ def filter_by_category(request, param):
 @login_required
 def recipe_upvote(request, id):
     html = "recipeview.html"
-    try:
-        vote = Recipe.objects.get(id=id)
-    except Recipe.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    vote.total += 1
-    vote.save()
-    return HttpResponseRedirect(reverse('homepage'))
+    voting_helper(id, Recipe, 'upvote')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 @login_required
 def comment_upvote(request, id):
     html = "recipeview.html"
-    try:
-        vote = Comment.objects.get(id=id)
-    except Comment.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    vote.total += 1
-    vote.save()
-    return HttpResponseRedirect(reverse('homepage'))
+    voting_helper(id, Comment, 'upvote')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
 
 @login_required
 def recipe_downvote(request, id):
     html = "recipeview.html"
-    try:
-        vote = Recipe.objects.get(id=id)
-    except Recipe.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    vote.total -= 1
-    vote.save()
-    return HttpResponseRedirect(reverse('homepage'))
+    voting_helper(id, Recipe, 'downvote')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 @login_required
 def comment_downvote(request, id):
     html = "recipeview.html"
-    try:
-        vote = Comment.objects.get(id=id)
-    except Comment.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    vote.total -= 1
-    vote.save()
-    return HttpResponseRedirect(reverse('homepage'))
+    voting_helper(id, Comment, 'downvote')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 

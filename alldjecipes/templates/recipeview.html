@@ -5,12 +5,12 @@
 <nav style='background-color:lightgrey; width:auto'>
 <a href='/' style='background:transparent'> Home </a> | 
 <a href='/users/' style='background:transparent'> All Users </a> | 
-<a href='/chefuser/{{user.id}}' style='background:transparent'>Profile</a> |
+<a href='/chefuser/{{logged.id}}' style='background:transparent'>Profile</a> |
 <a href='/addrecipe/' style='background:transparent'> Add Recipe </a> |
 <a href='/logout/' style='background:transparent'> Log out </a> 
 </nav>
 {% endif %}
-{% if  user.username  == ''%}
+{% if  user.username  == '' %}
 <nav style='background-color:lightgrey; padding-right:10px'>
 <a href='/' style='background:transparent'> Home </a> | 
 <a href='/users/' style='background:transparent'> All Users </a> | 
@@ -47,12 +47,11 @@
 </ol></h4>
 {{recipe.contact}}
 <br>
-    <a href='/recipeupvote/{{recipe.id}}'><button>love</button></a>
+    <a href='/recipeupvote/{{recipe.id}}'><button>C'est Bon!</button></a>
     {{ recipe.total }}
-    <a href='/recipedownvote/{{recipe.id}}'><button>hate</button></a>
+    <a href='/recipedownvote/{{recipe.id}}'><button>C'est Ordures</button></a>
     <br>
-    {{user}}
-    {% if user == recipe.creator %}
+    {% if logged == recipe.creator %}
 <a href='/editrecipe/'><button> Edit Recipe</button></a> 
     {% endif %}
 <h2>Comments:</h2>
@@ -62,9 +61,9 @@
     <br>
     -{{comment.commentor}}
     <br>
-    <a href='/commentupvote/{{comment.id}}'><button>love</button></a>
+    <a href='/commentupvote/{{comment.id}}'><button>C'est Bon!</button></a>
     {{ comment.total }}
-    <a href='/commentdownvote/{{comment.id}}'><button>hate</button></a>
+    <a href='/commentdownvote/{{comment.id}}'><button>C'est Ordures</button></a>
     <br>
     </div>
 {% endfor %}

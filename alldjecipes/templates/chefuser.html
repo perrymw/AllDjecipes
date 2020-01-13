@@ -1,14 +1,28 @@
-
-<nav>
-    <a href='/'>Back to home</a> | 
-    <a href='/addrecipe/'> Add Recipe</a> |
-    <a href='/logout/'> Log out </a>
+<body style='background-color:lightgrey; padding:20px'>
+<div style="background-color:lightblue; padding:10px">
+<img src='../../media/images/defaultimage.jpeg' height="auto" width="300px" align='right'><h1><i>AllDjecipes - The Real Cooking Network</i></h1>
+{% if  user.username  != ''%}
+<nav style='background-color:lightgrey; width:auto'>
+<a href='/' style='background:transparent'> Home </a> | 
+<a href='/users/' style='background:transparent'> All Users </a> | 
+<a href='/addrecipe/' style='background:transparent'> Add Recipe </a> |
+<a href='/logout/' style='background:transparent'> Log out </a> 
 </nav>
+{% endif %}
+{% if  user.username  == ''%}
+<nav style='background-color:lightgrey; padding-right:10px'>
+<a href='/' style='background:transparent'> Home </a> | 
+<a href='/users/' style='background:transparent'> All Users </a> | 
+<a href='/adduser/' style='background:transparent'> Sign Up </a> | 
+<a href='/login/' style='background:transparent'> Login </a> 
+</nav>
+{% endif %}
 <h1>{{ chefuser.firstname}}  {{chefuser.lastname}}</h1>
 <br>
 <h2>{{chefuser.username}}<h2>
 <h2>{{ chefuser.email }}</h2>
-{{recipes.all.count}}
+<strong>Recipe Count:{{recipes.all.count}}</strong>
+<strong>Recipe List:</strong>
 {% for recipe in recipes %}
 <ul>
     <li><a href = "/recipe/{{recipe.id}}">{{recipe.recipe_name}}</a></li>

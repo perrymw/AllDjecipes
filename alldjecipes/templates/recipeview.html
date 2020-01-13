@@ -1,7 +1,33 @@
+<body style='background-color:lightgrey; padding:20px'>
+<div style="background-color:lightblue; padding:10px">
+<img src='../../media/images/defaultimage.jpeg' height="auto" width="300px" align='right'><h1><i>AllDjecipes - The Real Cooking Network</i></h1>
+{% if  user.username  != ''%}
+<nav style='background-color:lightgrey; width:auto'>
+<a href='/' style='background:transparent'> Home </a> | 
+<a href='/users/' style='background:transparent'> All Users </a> | 
+<a href='/chefuser/{{user.id}}' style='background:transparent'>Profile</a> |
+<a href='/addrecipe/' style='background:transparent'> Add Recipe </a> |
+<a href='/logout/' style='background:transparent'> Log out </a> 
+</nav>
+{% endif %}
+{% if  user.username  == ''%}
+<nav style='background-color:lightgrey; padding-right:10px'>
+<a href='/' style='background:transparent'> Home </a> | 
+<a href='/users/' style='background:transparent'> All Users </a> | 
+<a href='/adduser/' style='background:transparent'> Sign Up </a> | 
+<a href='/login/' style='background:transparent'> Login </a> 
+</nav>
+{% endif %}
 <div id='header'>
 <h2>{{ recipe }}</h2> by {{recipe.creator}}
 </div>
 <img src='{{ recipe.image.url }}'>
+{% if recipe.difficulty_level %}
+<h3>Difficulty: Easy</h3>
+{% endif %}
+{% if not recipe.difficulty_level %}
+<h3>Difficulty: Hard</h3>
+{% endif %}
 <h3>Time: {{recipe.completion_time}}</h3>
 <h3>Ingredients:</h3>
 {% for foo in ingredients %}
@@ -42,8 +68,5 @@
     <br>
     </div>
 {% endfor %}
-
-<a href='/'>Back to home</a> 
-<a href='/addrecipe/'> Add Recipe</a> 
+<br>
 <a href='/{{recipe.id}}/addcomment/'><button> Add Comment</button></a> 
-<a href='/logout/'> Log out </a>

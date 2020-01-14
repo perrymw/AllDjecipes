@@ -1,19 +1,52 @@
-<body style='background-color:lightgrey; padding:20px'>
-<div style="background-color:lightblue; padding:10px">
+<!DOCTYPE html>
+<html lang="en" style="background-image:url(https://www.health.harvard.edu/media/content/images/p3_MedDiet_W1806_gi667751254.jpg)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AllDjecipes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="margin-left:50px; margin-right:50px; margin-top:20px; border-radius:10px">
+<div style='padding:5px;'>
 <img src='../../media/images/defaultimage.jpeg' height="auto" width="300px" align='right'><h1><i>AllDjecipes - The Real Cooking Network</i></h1>
 {% if  user.username  != ''%}
-<nav style='background-color:lightgrey; width:auto'>
-<a href='/' style='background:transparent'> Home </a> | 
-<a href='/chefuser/{{user.id}}' style='background:transparent'>Profile</a> |
-<a href='/addrecipe/' style='background:transparent'> Add Recipe </a> 
-<a href='/logout/' style='background:transparent'> Log out </a> | 
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/users/">All Users</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/chefuser/{{user.id}}">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/addrecipe/">Add Recipe</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/logout/" tabindex="-1">Log out</a>
+  </li>
+</ol>
 </nav>
 {% endif %}
 {% if  user.username  == ''%}
-<nav style='background-color:lightgrey; padding-right:10px'>
-<a href='/' style='background:transparent'> Home </a> | 
-<a href='/adduser/' style='background:transparent'> Sign Up </a> | 
-<a href='/login/' style='background:transparent'> Login </a> 
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/users/">All Users</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/adduser/">Sign Up</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/login/" tabindex="-1">Login</a>
+  </li>
+</ol>
 </nav>
 {% endif %}
 
@@ -25,3 +58,4 @@
 {% endfor %}
 </div>
 </body>
+</html>

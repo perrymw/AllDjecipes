@@ -52,7 +52,7 @@
     <a href='/recipedownvote/{{recipe.id}}'><button>C'est Ordures</button></a>
     <br>
     {% if logged == recipe.creator %}
-<a href='/editrecipe/'><button> Edit Recipe</button></a> 
+<a href='/editrecipe/{{recipe.id}}'><button> Edit Recipe</button></a> 
     {% endif %}
 <h2>Comments:</h2>
 {% for comment in comments %}

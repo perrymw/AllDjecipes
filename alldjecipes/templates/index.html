@@ -1,20 +1,20 @@
-<body style='background-color:lightgrey; padding:20px'>
-<div style="background-color:lightblue; padding:10px">
+<body >
+<div >
 <img src='../../media/images/defaultimage.jpeg' height="auto" width="300px" align='right'><h1><i>AllDjecipes - The Real Cooking Network</i></h1>
 {% if  user.username  != ''%}
-<nav style='background-color:lightgrey; width:auto'>
-<a href='/users/' style='background:transparent'> All Users </a> | 
-<a href='/chefuser/{{user.id}}' style='background:transparent'>Profile</a> |
-<a href='/addrecipe/' style='background:transparent'> Add Recipe </a> |
-<a href='/logout/' style='background:transparent'> Log out </a> 
+<nav >
+<a href='/users/' > All Users </a> | 
+<a href='/chefuser/{{user.id}}' >Profile</a> |
+<a href='/addrecipe/'> Add Recipe </a> |
+<a href='/logout/' > Log out </a> 
 </nav>
 <h2>Welcome {{ user.username }}!</h2>
 {% endif %}
 {% if  user.username  == ''%}
-<nav style='background-color:lightgrey; padding-right:10px'>
-<a href='/users/' style='background:transparent'> All Users </a> | 
-<a href='/adduser/' style='background:transparent'> Sign Up </a> | 
-<a href='/login/' style='background:transparent'> Login </a> 
+<nav >
+<a href='/users/' > All Users </a> | 
+<a href='/adduser/' > Sign Up </a> | 
+<a href='/login/' > Login </a> 
 </nav>
 <h2>Hello, There!<h2>
 {% endif %}

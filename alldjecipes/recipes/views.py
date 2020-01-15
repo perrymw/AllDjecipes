@@ -114,7 +114,7 @@ def edit_recipe_view(request,id):
         if request.method == "POST":
             form = RecipeForm(request.POST, instance=instance)
             form.save()
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('recipe_detail', args=[id]))
     else:
         return HttpResponse("You can't do that")
     form = RecipeForm(instance=instance)

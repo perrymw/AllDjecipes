@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from alldjecipes.recipes.forms import CommentForm, RecipeForm, EditRecipeForm
+from alldjecipes.recipes.forms import CommentForm, RecipeForm
 from alldjecipes.recipes.models import Recipe, Comment, Vote
 from alldjecipes.users.models import ChefUser
 from alldjecipes.helpers.helper import voting_helper
@@ -112,10 +112,10 @@ def edit_recipe_view(request,id):
     logged_in = request.user
     if logged_in == instance.creator:
         if request.method == "POST":
-            form = EditRecipeForm(request.POST, instance=instance)
+            form = RecipeForm(request.POST, instance=instance)
             form.save()
             return HttpResponseRedirect(reverse('homepage'))
     else:
         return HttpResponse("You can't do that")
-    form = EditRecipeForm(instance=instance)
+    form = RecipeForm(instance=instance)
     return render(request, html, {'form': form})

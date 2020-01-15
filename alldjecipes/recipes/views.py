@@ -50,7 +50,7 @@ class AddRecipe(View):
                     image=data['image'],
                     contact=request.user.email
                     )
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('chefuser',  args=[request.user.id]))
         form = RecipeForm()
         return render(request, html, {'form': form})
 

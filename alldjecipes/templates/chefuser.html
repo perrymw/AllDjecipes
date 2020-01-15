@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-image:url(https://www.health.harvard.edu/media/content/images/p3_MedDiet_W1806_gi667751254.jpg)">
+<html lang="en" style="background-image:url(https://www.health.harvard.edu/media/content/images/p3_MedDiet_W1806_gi667751254.jpg); background-repeat: no-repeat; background-attachment: fixed">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +53,8 @@
 <br>
 <h2>{{chefuser.username}}<h2>
 <h2>{{ chefuser.email }}</h2>
-<strong>Recipe Count:{{recipes.all.count}}</strong>
+<strong>Recipe Count: {{recipes.all.count}}</strong>
+<br>
 <strong>Recipe List:</strong>
 {% for recipe in recipes %}
 <ul>

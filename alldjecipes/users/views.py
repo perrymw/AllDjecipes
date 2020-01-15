@@ -23,7 +23,7 @@ class AddUser(View):
                     username=data['username'],
                     password=data['password'],
                 )
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('login'))
         form = SignupForm()
         return render(request, html, {'form': form})
 

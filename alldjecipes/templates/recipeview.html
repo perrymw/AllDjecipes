@@ -1,22 +1,162 @@
-<h2>{{ recipe }}</h2>
-<img src='{{ recipe.image.url }}'>
-<h3>Time: {{recipe.completion_time}}</h3>
-<h3>Ingredients:</h3>
-{% for foo in ingredients %}
-<h4><ul>
-    <li>
-    {{ foo }}
-    </li>
-</ul></h4>
-{% endfor %}
-<h3>Steps:</h3>
-<h4><ol>
-{% for foo in instructions %}
-    <li>
-    {{ foo }}
-    </li>
-{% endfor %}
-</ol></h4>
-{{recipe.contact}}
-<br>
-<a href='/'>Back to home</a> <a href='/recipeadd/'> Add Recipe</a> <a href='/logout/'> Log out </a>
+<!DOCTYPE html>
+<html lang="en" style="background-image:url(https://www.health.harvard.edu/media/content/images/p3_MedDiet_W1806_gi667751254.jpg); background-repeat: no-repeat; background-attachment: fixed">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>AllDjecipes</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript"  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    </head>
+    <body style="margin-left:50px; margin-right:50px; margin-top:20px; margin-bottom:20px;border-radius:10px">
+        <div style='padding:5px;'>
+            <img src='../../media/images/defaultimage.jpeg' height="auto" width="300px" align='right'><h1><i>AllDjecipes - The Real Cooking Network</i></h1>
+            {% if  user.username  != ''%}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users/">All Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/chefuser/{{logged.id}}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addrecipe/">Add Recipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/logout/" tabindex="-1">Log out</a>
+                        </li>
+                    </ol>
+                </nav>
+            {% endif %}
+            {% if  user.username  == ''%}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users/">All Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/adduser/">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/login/" tabindex="-1">Login</a>
+                        </li>
+                    </ol>
+                </nav>
+            {% endif %}
+        <div id='header'>
+            <h2>{{ recipe }}</h2> by {{recipe.creator}}
+        </div>
+        <img src='{{ recipe.image.url }}'>
+        {% if recipe.difficulty_level %}
+            <h3>Difficulty: Easy</h3>
+        {% endif %}
+        {% if not recipe.difficulty_level %}
+            <h3>Difficulty: Hard</h3>
+        {% endif %}
+        <h3>Time: {{recipe.completion_time}}</h3>
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <h3>Ingredients:</h3>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        {% for foo in ingredients %}
+                            <h5>
+                                <ul>
+                                    <li>
+                                        {{ foo }}
+                                    </li>
+                                </ul>
+                            </h5>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h3>Steps:</h3>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <h5>
+                            <ol>
+                                {% for foo in instructions %}
+                                    <li>
+                                        {{ foo }}
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{recipe.contact}}
+        <br>
+        <a href='/recipeupvote/{{recipe.id}}'>
+            <button type="button" class="btn btn-success">
+                C'est Bon!
+            </button>
+        </a>
+        {{ recipe.total }}
+        <a href='/recipedownvote/{{recipe.id}}'>
+            <button type="button" class="btn btn-danger">
+                C'est Ordures
+            </button>
+        </a>
+        <br>
+        {% if logged == recipe.creator %}
+            <a href='/editrecipe/{{recipe.id}}'><button type="button" class="btn btn-secondary"> Edit Recipe</button></a> 
+        {% endif %}
+        <br>
+        <a href='/{{recipe.id}}/addcomment/'>
+            <button type="button" class="btn btn-info"> 
+                Add Comment
+            </button>
+        </a> 
+        <h2>Comments:</h2>
+        {% for comment in comments %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                    {{comment.commentor}}
+                    </h5>
+                    <p class="card-text">
+                    {{comment.content}}
+                    <p>
+                    <a href='/commentupvote/{{comment.id}}'>
+                        <button type="button" class="btn btn-success">
+                            C'est Bon!
+                        </button>
+                    </a>
+                    {{ comment.total }}
+                    <a href='/commentdownvote/{{comment.id}}'>
+                        <button type="button" class="btn btn-danger">
+                            C'est Ordures
+                        </button>
+                    </a>
+                    <br>
+                </div>
+            </div>
+        {% endfor %}
+        <br>
+        </div>
+    </body>
+</html>

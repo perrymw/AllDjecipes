@@ -30,6 +30,7 @@
   </li>
 </ol>
 </nav>
+<h2>Welcome, {{ user.username }}!</h2>
 {% endif %}
 {% if  user.username  == ''%}
 <nav aria-label="breadcrumb">
@@ -48,18 +49,15 @@
   </li>
 </ol>
 </nav>
+<h2>Hello, There!</h2>
 {% endif %}
-<h1>{{ chefuser.firstname}}  {{chefuser.lastname}}</h1>
-<br>
-<h2>{{chefuser.username}}<h2>
-<h2>{{ chefuser.email }}</h2>
-<strong>Recipe Count: {{recipes.all.count}}</strong>
-<br>
-<strong>Recipe List:</strong>
-{% for recipe in recipes %}
-<ul>
-    <li><a href = "/recipe/{{recipe.id}}">{{recipe.recipe_name}}</a></li>
-</ul>
+{% for item in category_item %}
+    <ul>
+    <img src='{{ item.image.url }}'height="auto" width="45" style="border-radius:100000px">  <a href='/recipe/{{item.id}}/'>{{item.recipe_name}}</a> <br> Overall: 
+    {% if item.total > 0 %} Liked! {% endif %} 
+    {% if item.total == 0 %} Not rated {% endif %} 
+    {% if item.total < 0 %} Not well liked {% endif %}
+    </ul>
 {% endfor %}
 
 </div>

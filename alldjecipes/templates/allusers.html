@@ -49,19 +49,13 @@
 </ol>
 </nav>
 {% endif %}
-<h1>{{ chefuser.firstname}}  {{chefuser.lastname}}</h1>
-<br>
-<h2>{{chefuser.username}}<h2>
-<h2>{{ chefuser.email }}</h2>
-<strong>Recipe Count: {{recipes.all.count}}</strong>
-<br>
-<strong>Recipe List:</strong>
-{% for recipe in recipes %}
-<ul>
-    <li><a href = "/recipe/{{recipe.id}}">{{recipe.recipe_name}}</a></li>
-</ul>
-{% endfor %}
 
+
+
+<h2>OurCommunity of Creators</h2>
+{% for thing in chefusers %}
+        <a href='/chefuser/{{thing.id}}'><h3>{{thing}} </h3></a><br>
+{% endfor %}
 </div>
 </body>
 </html>

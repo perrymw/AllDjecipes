@@ -23,7 +23,7 @@ class AddUser(View):
                     username=data['username'],
                     password=data['password'],
                 )
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('login'))
         form = SignupForm()
         return render(request, html, {'form': form})
 
@@ -33,3 +33,8 @@ def user_view(request, id):
     chefuser = ChefUser.objects.filter(id=id).first()
     recipes = Recipe.objects.filter(creator=chefuser)
     return render(request, html, {'chefuser':chefuser, 'recipes':recipes})
+
+def all_users_view(request):
+    html = 'allusers.html'
+    chefuser = ChefUser.objects.all()
+    return render(request, html, {'chefusers':chefuser})

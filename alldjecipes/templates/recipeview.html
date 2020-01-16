@@ -55,11 +55,11 @@
             <h2>{{ recipe }}</h2> by {{recipe.creator}}
         </div>
         <img src='{{ recipe.image.url }}'>
-        {% if recipe.difficulty_level %}
-            <h3>Difficulty: Easy</h3>
-        {% endif %}
-        {% if not recipe.difficulty_level %}
+        {% if recipe.difficulty %}
             <h3>Difficulty: Hard</h3>
+        {% endif %}
+        {% if not recipe.difficulty %}
+            <h3>Difficulty: Easy</h3>
         {% endif %}
         <h3>Time: {{recipe.completion_time}}</h3>
         <div class="accordion" id="accordionExample">

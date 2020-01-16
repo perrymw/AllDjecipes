@@ -42,7 +42,7 @@ class AddRecipe(View):
                 new_recipe = Recipe.objects.create(
                     creator=request.user,
                     recipe_name=data['recipe_name'],
-                    difficulty_level=data['difficulty_level'],
+                    difficulty=data['difficulty'],
                     category=data['category'],
                     ingredients=data['ingredients'],
                     instructions=data['instructions'],
@@ -77,7 +77,7 @@ class AddComment(View):
 
 def filter_by_category(request, param):
     html = 'category_filter.html'
-    category_items =  Recipe.objects.filter(category=param.lower().title())
+    category_items =  Recipe.objects.filter(category=param.lower().title()).order_by('-date')
     return render(request, html, {'category_item': category_items})
 
 
